@@ -31,7 +31,7 @@
             (p.controller/search-moves-by-word p.controller/parse-moves "MOVE - ")
             )
     "9" (do (println "Você escolheu Opção 9")
-
+            (distinct (p.controller/get-abilities-from-more-than-one-pokemon 2))
             )
     "10" (do (println "Você escolheu Opção 10")
              (p.controller/get-url-by-name "squirtle")

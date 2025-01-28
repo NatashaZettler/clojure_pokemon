@@ -17,7 +17,7 @@
   (println "6. Comparar se as habilidades de dois pokemons são iguais")
   (println "7. Buscar movimentos que comecem com uma palavra especifica")
   (println "8. Colocar uma marca/símbolo para identificar que são movimentos")
-  (println "9. Quantos pokemons devem ter as habilidades listadas?")
+  (println "9. Quantos pokemons devem ter as habilidades listadas e liste as mesmas e não repetidas? ")
   (println "10. Procurar informações sobre um pokemon especifico")
   (println "11. Ordenar os nomes dos pokemons decrescente")
   (println "12. Sair do sistema")

@@ -1,6 +1,7 @@
 (ns pokemons.controller-per-functionality
   (:require [cheshire.core :refer :all]
   ;[clojure.tools.cli :refer [parse-opts]]
+            [clojure.set :as set]
    [pokemons.server :as p.server])
   )
 
@@ -81,23 +82,24 @@
     )
   )
 
-
-
 (choose-how-many-pokemon-get-info "https://pokeapi.co/api/v2/pokemon/" 3 [])
 
+(defn just-abilities-parse [url] (get-in (parse-string (p.server/just-abilities url)) ["abilities"]))
 
-
-(defn request-abilities-from-many-pokemons []
-  (let [urls-pokemons (choose-how-many-pokemon-get-info "https://pokeapi.co/api/v2/pokemon/" 3 [])]
-    (println urls-pokemons)
-    (println "\n\n\n\n")
-    (map #(p.server/just-abilities %1) urls-pokemons)
+(defn request-abilities-from-many-pokemons [num]
+  (let [urls-pokemons (choose-how-many-pokemon-get-info "https://pokeapi.co/api/v2/pokemon/" num [])]
+    ;(println urls-pokemons)
+    (println "\n")
+    (map #(just-abilities-parse %1) urls-pokemons)
     )
   )
+(request-abilities-from-many-pokemons 2)
 
-(request-abilities-from-many-pokemons)
+(defn get-abilities-from-more-than-one-pokemon [num]
+  (mapv (fn [list] (map #(get-in %1 ["ability" "name"]) list))
+        (request-abilities-from-many-pokemons num))
+  )
 
-;many-abilities-from-many-pokemons
 
 
 
