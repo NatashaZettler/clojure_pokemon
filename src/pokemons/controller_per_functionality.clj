@@ -1,8 +1,8 @@
 (ns pokemons.controller-per-functionality
   (:require [cheshire.core :refer :all]
+            [clojure.pprint :refer [print-table]]
   ;[clojure.tools.cli :refer [parse-opts]]
-   [pokemons.server :as p.server])
-  )
+  [pokemons.server :as p.server]))
 
 (def get-results
   (get-in (parse-string p.server/just-body) ["results"])
@@ -31,33 +31,33 @@
 
 ;Ordenar os nomes dos pokemons crescente
 (defn sort-names [get-results]
-  (println (get-names get-results))
-  (sort (get-names get-results)))
+  (let [sorted-names (sort (get-names get-results))
+        names-maps (map #(hash-map :Name %) sorted-names)]
+    (print-table names-maps)))                              ;; vê se você curte esse print!
 
 ;Ordenar os nomes dos pokemons pelo número de letras do próprio nome
 (defn sort-names-letter [get-results]
   (println (get-names get-results))
-  (sort-by count (get-names get-results)))
+  (sort-by count (get-names get-results))) ; quando você faz o sort-by depois do println, ele não printa o resultado ordenado
 
 ;Ordenar os nomes dos pokemons decrescente
 (defn sort-names-desc [get-results]
   (println (get-names get-results))
-  (sort-by identity #(compare %2 %1) (get-names get-results)))
+  (sort-by identity #(compare %2 %1) (get-names get-results))) ; mesma coisa aqui, ele não printa o resultado ordenado
 
 ; Quais suas habilidades?
 (defn get-abilities [abilities]
-  (for [item abilities] (get-in item ["ability" "name"])))
+  (for [item abilities] (get-in item ["ability" "name"])))  ; que tal tentar usar um map?
 
 
 ;Quantos movimentos esse pokemon tem?
 
 (defn qtd-moves [moves]
-  (count moves)
-  )
+  (println (count moves)))
 
 ;Colocar uma marca/símbolo para identificar que são movimentos
 (defn search-moves-by-word [moves branch]
-  (map #(str branch %) (get-moves-name moves)))
+  (map #(str branch %) (get-moves-name moves)))             ; não vai printar nada
 
 ;Quantos pokemons devem ter as habilidades listadas?
 
