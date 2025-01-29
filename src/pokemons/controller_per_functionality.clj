@@ -2,6 +2,7 @@
   (:require [cheshire.core :refer :all]
   ;[clojure.tools.cli :refer [parse-opts]]
             [clojure.set :as set]
+            [clojure.string :as str]
    [pokemons.server :as p.server])
   )
 
@@ -88,7 +89,6 @@
 
 (defn request-abilities-from-many-pokemons [num]
   (let [urls-pokemons (choose-how-many-pokemon-get-info "https://pokeapi.co/api/v2/pokemon/" num [])]
-    ;(println urls-pokemons)
     (println "\n")
     (map #(just-abilities-parse %1) urls-pokemons)
     )
@@ -100,11 +100,54 @@
         (request-abilities-from-many-pokemons num))
   )
 
+;Comparar se as habilidades de dois pokemons são iguais.
+
+(get-abilities-from-more-than-one-pokemon 4)
+
+(def my-list (atom []))
+
+(defn get-name-and-abilities [num-pokemons, list]
+
+(let [dec-value (dec-value num-pokemons)
+      nth-aux (nth (for [item get-results] (str(get-in item ["name"]) "," (get-in item ["url"]))) dec-value)
+      ]
+  (swap! list conj nth-aux)
+  (println list)
+  (if (> num-pokemons 1)
+    (get-name-and-abilities dec-value list) list)
+  )
+  )
+
+
+(defn get-abilities-from-list-string []
+    (let [list-pokemons-url (get-name-and-abilities 3 my-list)
+          ]
+      (map #(just-abilities-parse (str/split %1 #",")) @list-pokemons-url)
+      )
+  )
 
 
 
+(for [item (map #(str/split %1 #",") @my-list)] (second item))
+(get-name-and-abilities 1 my-list)
+(get-abilities-from-list-string)
+
+@my-list
+
+(reset! my-list [])
+
+(defn just-abilities-parse [url]
+  (println (parse-string (p.server/just-abilities url)))
+  (get-in
+    (parse-string (p.server/just-abilities url)) ["abilities"])
+  )
 
 
+(doseq [item (map #(str/split %1 #",") @my-list)]
+  (do
+    (println(first item))
+      (just-abilities-parse (second item)))
+  )
 
 
 
