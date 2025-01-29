@@ -1,10 +1,8 @@
 (ns pokemons.controller-per-functionality
   (:require [cheshire.core :refer :all]
-  ;[clojure.tools.cli :refer [parse-opts]]
-            [clojure.set :as set]
-            [clojure.string :as str]
-   [pokemons.server :as p.server])
-  )
+            [clojure.pprint :refer [print-table]]
+            ;[clojure.tools.cli :refer [parse-opts]]
+            [pokemons.server :as p.server]))
 
 (def get-results
   (get-in (parse-string p.server/just-body) ["results"])
@@ -36,30 +34,50 @@
   (println (get-names get-results))
   (sort (get-names get-results)))
 
+(defn sort-names-PRI [get-results]
+  (let [sorted-names (sort (get-names get-results))
+        names-maps (map #(hash-map :Name %) sorted-names)]
+    (print-table names-maps))) ;; vê se você curte esse print!
+
 ;Ordenar os nomes dos pokemons pelo número de letras do próprio nome
 (defn sort-names-letter [get-results]
   (println (get-names get-results))
   (sort-by count (get-names get-results)))
+
+(defn sort-names-letter-PRI [get-results]
+  (println (get-names get-results))
+  (sort-by count (get-names get-results))) ; quando você faz o sort-by depois do println, ele não printa o resultado ordenado
 
 ;Ordenar os nomes dos pokemons decrescente
 (defn sort-names-desc [get-results]
   (println (get-names get-results))
   (sort-by identity #(compare %2 %1) (get-names get-results)))
 
+(defn sort-names-desc-PRI [get-results]
+  (println (get-names get-results))
+  (sort-by identity #(compare %2 %1) (get-names get-results))) ; mesma coisa aqui, ele não printa o resultado ordenado
+
 ; Quais suas habilidades?
 (defn get-abilities [abilities]
   (for [item abilities] (get-in item ["ability" "name"])))
 
+(defn get-abilities-PRI [abilities]
+  (for [item abilities] (get-in item ["ability" "name"])))  ; que tal tentar usar um map?
 
 ;Quantos movimentos esse pokemon tem?
-
 (defn qtd-moves [moves]
   (count moves)
   )
 
+(defn qtd-moves-PRI [moves]
+  (println (count moves)))
+
 ;Colocar uma marca/símbolo para identificar que são movimentos
 (defn search-moves-by-word [moves branch]
   (map #(str branch %) (get-moves-name moves)))
+
+(defn search-moves-by-word-PRI [moves branch]
+  (map #(str branch %) (get-moves-name moves)))             ; não vai printar nada
 
 ;Quantos pokemons devem ter as habilidades listadas?
 
@@ -102,8 +120,6 @@
 
 ;Comparar se as habilidades de dois pokemons são iguais.
 
-(get-abilities-from-more-than-one-pokemon 4)
-
 (def my-list (atom []))
 
 (defn get-name-and-abilities [num-pokemons, list]
@@ -118,36 +134,40 @@
   )
   )
 
-
-(defn get-abilities-from-list-string []
-    (let [list-pokemons-url (get-name-and-abilities 3 my-list)
-          ]
-      (map #(just-abilities-parse (str/split %1 #",")) @list-pokemons-url)
-      )
-  )
-
-
-
 (for [item (map #(str/split %1 #",") @my-list)] (second item))
-(get-name-and-abilities 1 my-list)
-(get-abilities-from-list-string)
+(get-name-and-abilities 3 my-list)
 
 @my-list
 
 (reset! my-list [])
 
-(defn just-abilities-parse [url]
-  (println (parse-string (p.server/just-abilities url)))
-  (get-in
-    (parse-string (p.server/just-abilities url)) ["abilities"])
-  )
+(def my-map-atom (atom {}))
+(reset! my-map-atom {})
 
+(defn increment-number [num]
+  (+ num 1))
 
-(doseq [item (map #(str/split %1 #",") @my-list)]
+(defn print-pokemons [] (doseq [item (map #(str/split %1 #",") @my-list)]
   (do
-    (println(first item))
-      (just-abilities-parse (second item)))
+    (println "\nPokemon name: \n" (first item) "\n")
+    (println "Abilities:")
+      (doseq [item (just-abilities-parse (second item))]
+          (let [new-item (get-in item ["ability" "name"])]
+            (println new-item)
+            (swap! my-map-atom assoc new-item (increment-number 1))
+          )
+        )
+    )
   )
+  (println "Quantidade de habilidades dos pokemons listados: \n")
+  (println @my-map-atom)
+  )
+
+(print-pokemons)
+
+
+
+
 
 
 
