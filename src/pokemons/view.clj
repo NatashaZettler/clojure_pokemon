@@ -6,7 +6,7 @@
 
 (def date-time (p.utils/date-time-user-use-system))
 
-(defn create-a-menu []
+(defn create-a-menu-old []
   (println "Menu sobre pokemons")
   date-time
   (println "1. Listar todos os pokemons")
@@ -24,7 +24,7 @@
   )
 
 
-(defn create-a-menu-PRI []
+(defn create-a-menu []
   (let [date-time (p.utils/date-time-user-use-system)] ; criando o date-time aqui dentro pra ele sempre atualizar
     (println "############### Menu sobre pokemons ############### [" date-time "]")
     (doseq [line ["1. Listar todos os pokemons"
