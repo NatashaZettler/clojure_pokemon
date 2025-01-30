@@ -50,8 +50,8 @@
 (defn handle-choice-PRI [choice]
   (print-choice-PRI choice)
   (case choice
-    "1" (p.controller/get-names p.controller/get-results)   ; não vai printar nada
-    "2" (p.controller/sort-names p.controller/get-results)
+    "1" (p.controller/list-names p.controller/get-results)   ; não vai printar nada
+    "2" (p.controller/sort-names-PRI p.controller/get-results)
     "3" (p.controller/sort-names-letter p.controller/get-results) ; não vai printar nada
     "4" (p.controller/get-abilities p.controller/parse-abilities) ; não vai printar nada
     "5" (p.controller/qtd-moves p.controller/parse-moves)
@@ -75,8 +75,8 @@
   (loop []
     (p.view/create-a-menu)
     (let [choice (read-line)
-          result (handle-choice choice)]
+          result (handle-choice-PRI choice)]
       (when (not= result :exit)
         (recur)))))
 
-;(menu-loop)
+;(menu-loop-PRI)

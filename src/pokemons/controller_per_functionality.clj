@@ -29,6 +29,10 @@
 (defn get-names [results]
   (for [item results] (str (get item "name"))))
 
+(defn list-names [results]
+  (println (get-names results))
+  )
+
 ;Ordenar os nomes dos pokemons crescente
 (defn sort-names [get-results]
   (println (get-names get-results))
@@ -62,7 +66,10 @@
   (for [item abilities] (get-in item ["ability" "name"])))
 
 (defn get-abilities-PRI [abilities]
-  (for [item abilities] (get-in item ["ability" "name"])))  ; que tal tentar usar um map?
+  (map #(get-in % ["ability" "name"]) abilities)
+  )  ; que tal tentar usar um map?
+
+(get-abilities-PRI parse-abilities)
 
 ;Quantos movimentos esse pokemon tem?
 (defn qtd-moves [moves]
@@ -154,7 +161,7 @@
       (doseq [item (just-abilities-parse (second item))]
           (let [new-item (get-in item ["ability" "name"])]
             (println new-item)
-            (swap! my-map-atom assoc new-item (increment-number 1))
+            #nu/tapd (swap! my-map-atom assoc new-item (increment-number 0))
           )
         )
     )
@@ -164,9 +171,6 @@
   )
 
 (print-pokemons)
-
-
-
 
 
 
