@@ -9,3 +9,6 @@
                                        )))
 
 (defn just-abilities [url] (:body (http-client/get url)))
+
+
+
