@@ -6,6 +6,7 @@
   :dependencies [[org.clojure/clojure "1.11.1"]
                  [clj-http "3.9.1"]
                  [cheshire "5.8.1"]
-                 [org.clojure/tools.cli "0.4.1"]]
+                 [org.clojure/tools.cli "0.4.1"]
+                 [prismatic/schema "1.4.1"]]
   :main ^:skip-aot pokemons.core
   :repl-options {:init-ns pokemons.core})

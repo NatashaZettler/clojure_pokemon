@@ -39,7 +39,9 @@
     "11" (do (println "Você escolheu Opção 11")
              (p.controller/sort-names-desc p.controller/get-results)
             )
-    "12" (do (println "Encerrando o sistema...")
+    "12" (do (println "Você escolheu Opção 12")
+             (p.controller/))
+    "13" (do (println "Encerrando o sistema...")
             (System/exit 0))
     (println "Opção inválida, tente novamente.")))
 
@@ -58,3 +60,33 @@
 
 ;Comparar se as habilidades de dois pokemons são iguais
 ;Buscar movimentos que comecem com uma palavra especifica
+;
+;zipmap
+;match
+;:-
+;^:private
+;s/defn
+;cond
+;future-entries-reversal* - funcao com *
+;defschema
+;defmethod
+;defmulti
+;defn-
+;some
+;maybe
+;juxt - quero executar essas duas funcões ou mais
+;comp
+;case
+;clojure
+;:-
+;^:private
+;s/defn
+;cond
+;future-entries-reversal* - funcao com *
+;defschema
+;defmethod
+;defmulti
+;defn-
+;if-let
+;when-let
+;some
