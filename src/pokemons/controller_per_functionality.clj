@@ -1,8 +1,10 @@
 (ns pokemons.controller-per-functionality
   (:require [cheshire.core :refer :all]
+  [clojure.tools.cli :refer [parse-opts]]
+   [pokemons.server :as p.server]
             [clojure.pprint :refer [print-table]]
-    ;[clojure.tools.cli :refer [parse-opts]]
-            [pokemons.server :as p.server]))
+           )
+  )
 
 (def get-results
   (get-in (parse-string p.server/just-body) ["results"])
@@ -117,7 +119,29 @@
     (map #(just-abilities-parse %1) urls-pokemons)
     )
   )
-(request-abilities-from-many-pokemons 2)
+;(request-abilities-from-many-pokemons 2)
+
+(defn request-abilities-from-many-pokemons2 []
+  (let [urls-pokemons (choose-how-many-pokemon-get-info "https://pokeapi.co/api/v2/pokemon/" 3 [])]
+    ;(println urls-pokemons)
+    (println "\n\n\n\n")
+    (map #(p.server/just-abilities %1) urls-pokemons)
+    )
+  )
+
+(request-abilities-from-many-pokemons2)
+
+;many-abilities-from-many-pokemons
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;12. Existe algum movimento com a palavra digitada
+(defn existe-movimento-com-palavra-especifica [moviment-name]
+    (-> parse-moves
+
+      (map #(get-in % ["move" "name"]))
+        ;(some #(= % moviment-name))
+        )
+    )
 
 (defn get-abilities-from-more-than-one-pokemon [num]
   (mapv (fn [list] (map #(get-in %1 ["ability" "name"]) list))

@@ -20,7 +20,8 @@
   (println "9. Quantos pokemons devem ter as habilidades listadas e liste as mesmas e não repetidas? ")
   (println "10. Procurar informações sobre um pokemon especifico")
   (println "11. Ordenar os nomes dos pokemons decrescente")
-  (println "12. Sair do sistema")
+  (println "12. Existe algum movimento com a palavra digitada")
+  (println "13. Sair do sistema")
   )
 
 

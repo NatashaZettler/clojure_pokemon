@@ -42,9 +42,17 @@
              )
     "11" (do (println "Você escolheu Opção 11")
              (p.controller/sort-names-desc p.controller/get-results)
+<<<<<<< HEAD
+            )
+    "12" (do (println "Você escolheu Opção 12")
+             (p.controller/))
+    "13" (do (println "Encerrando o sistema...")
+            (System/exit 0))
+=======
              )
     "12" (do (println "Encerrando o sistema...")
              (System/exit 0))
+>>>>>>> 61509d1f9475390bb26c07da7744593dd24e4277
     (println "Opção inválida, tente novamente.")))
 
 (defn handle-choice [choice]
@@ -80,3 +88,43 @@
         (recur)))))
 
 ;(menu-loop)
+<<<<<<< HEAD
+
+
+
+
+
+;Comparar se as habilidades de dois pokemons são iguais
+;Buscar movimentos que comecem com uma palavra especifica
+;
+;zipmap
+;match
+;:-
+;^:private
+;s/defn
+;cond
+;future-entries-reversal* - funcao com *
+;defschema
+;defmethod
+;defmulti
+;defn-
+;some
+;maybe
+;juxt - quero executar essas duas funcões ou mais
+;comp
+;case
+;clojure
+;:-
+;^:private
+;s/defn
+;cond
+;future-entries-reversal* - funcao com *
+;defschema
+;defmethod
+;defmulti
+;defn-
+;if-let
+;when-let
+;some
+=======
+>>>>>>> 61509d1f9475390bb26c07da7744593dd24e4277
