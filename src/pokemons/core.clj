@@ -42,23 +42,20 @@
              )
     "11" (do (println "Você escolheu Opção 11")
              (p.controller/sort-names-desc p.controller/get-results)
-<<<<<<< HEAD
             )
     "12" (do (println "Você escolheu Opção 12")
-             (p.controller/))
+             (p.controller/get-url-by-name "squirtle")
     "13" (do (println "Encerrando o sistema...")
             (System/exit 0))
-=======
-             )
-    "12" (do (println "Encerrando o sistema...")
-             (System/exit 0))
->>>>>>> 61509d1f9475390bb26c07da7744593dd24e4277
-    (println "Opção inválida, tente novamente.")))
+
+    (println "Opção inválida, tente novamente.")
+            )
+    ))
 
 (defn handle-choice [choice]
   (print-choice choice)
   (case choice
-    "1" (p.controller/list-names p.controller/get-results)
+    "1" (p.controller/list-names p.controller/get-results)  ;OK
     "2" (p.controller/sort-names p.controller/get-results)
     "3" (p.controller/sort-names-letter p.controller/get-results) ; não vai printar nada
     "4" (p.controller/get-abilities p.controller/parse-abilities)
@@ -88,7 +85,7 @@
         (recur)))))
 
 ;(menu-loop)
-<<<<<<< HEAD
+
 
 
 
@@ -126,5 +123,4 @@
 ;if-let
 ;when-let
 ;some
-=======
->>>>>>> 61509d1f9475390bb26c07da7744593dd24e4277
+
